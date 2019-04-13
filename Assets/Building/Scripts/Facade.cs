@@ -25,14 +25,14 @@ namespace Building {
 
             Vector3 forward = start - end;
             int amount = (int) Mathf.Ceil(forward.magnitude / (float) tileSize);
-            UpdateTilesInfoSize(amount);
+            UpdateTilesInfoSize(Mathf.Max(amount+1, 20));
             float scale = forward.magnitude / (amount * tileSize);
             forward.Normalize();
             // tiles are looking to the right
             Quaternion tileRot = Quaternion.LookRotation(forward) *
                 Quaternion.Euler(0, 90, 0);
 
-            for (int i=0; i<amount; i++) {
+            for (int i=0; i<Mathf.Min(amount, 20); i++) {
                 BuildingTile created = Instantiate(tilePrototype).
                     GetComponent<BuildingTile>();
 
@@ -45,17 +45,20 @@ namespace Building {
                 created.name = i + "";
                 tileInstances.Add(created);
             }
+
+            if (amount > 20) {
+                Debug.LogWarning("the amount of required tiles is bigger than supported");
+            }
         }
 
         public void SetTileInfo (int index, BuildingTileType type) {
-            //
             UpdateTilesInfoSize(index+1);
             tilesInfo[index] = type;
         }
 
         void AddBlankTileTypeInfo () {
             tilesInfo.Add(new BuildingTileType());
-            tilesInfo[tilesInfo.Count-1].typeOfWall[CardinalPoint.north] = WallType.simple;
+            tilesInfo[tilesInfo.Count-1].typeOfWall[(int) CardinalPoint.north] = WallType.simple;
         }
     }
 }

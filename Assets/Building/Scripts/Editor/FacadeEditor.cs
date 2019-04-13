@@ -59,8 +59,8 @@ namespace Building {
                 foreach (CardinalPoint orientation in
                          System.Enum.GetValues(typeof(CardinalPoint))) {
                     if (DrawWallButton(tile, orientation)) {
-                        tile.CurrentType.typeOfWall[orientation] =
-                            Util.Next(tile.CurrentType.typeOfWall[orientation]);
+                        tile.CurrentType.typeOfWall[(int) orientation] =
+                            Util.Next(tile.CurrentType.typeOfWall[(int) orientation]);
                         Target.SetTileInfo(int.Parse(tile.name), tile.CurrentType);
                         clicked = true;
                     }
