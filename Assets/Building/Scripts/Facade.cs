@@ -21,6 +21,7 @@ namespace Building {
 
         public void Generate () {
             content.Clear();
+            if (start == end) return;
             tileInstances = new List<BuildingTile>();
 
             Vector3 forward = start - end;
