@@ -20,6 +20,10 @@ namespace Building {
         public override void OnInspectorGUI () {
             DrawDefaultInspector();
             if (GUILayout.Button("Generate")) Target.Generate();
+            if (GUILayout.Button("Reset")) {
+                Target.ClearTilesInfo();
+                Target.Generate();
+            }
 
             if (GUI.changed) {
                 EditorUtility.SetDirty(Target);
@@ -40,12 +44,22 @@ namespace Building {
         void EndAndStart () {
             Handles.matrix = Target.transform.localToWorldMatrix;
 
-            Quaternion rot = Quaternion.LookRotation(Target.start - Target.end);
+            Vector3 forward = Target.start - Target.end;
+            Quaternion rot = forward == Vector3.zero? Quaternion.identity:
+                Quaternion.LookRotation(forward);
             Vector3 start = Handles.PositionHandle(Target.start, rot);
             Vector3 end = Handles.
                 PositionHandle(Target.end,  rot * Quaternion.Euler(0, 180, 0));
             bool shouldGenerate = start != Target.start || end != Target.end;
+
+            if (start == end && forward != Vector3.zero) {
+                start = Target.start; end = Target.end;
+            } else if (forward == Vector3.zero) {
+                Target.end = Target.start + new Vector3(1, 0, 0);
+            }
+
             Target.start = start; Target.end = end;
+
 
             if (shouldGenerate) {
                 Target.Generate();
@@ -55,14 +69,15 @@ namespace Building {
         bool BuildingTileEdition () {
             bool clicked = false;
 
-            int i=0;
+            if (Target.tileInstances == null) return false;
+
             foreach (BuildingTile tile in Target.tileInstances) {
                 foreach (CardinalPoint orientation in
                          System.Enum.GetValues(typeof(CardinalPoint))) {
                     if (DrawWallButton(tile, orientation)) {
-                        tile.CurrentType.typeOfWall[orientation] =
-                            Util.Next(tile.CurrentType.typeOfWall[orientation]);
-                        Target.tilesInfo[int.Parse(tile.name)] = tile.CurrentType;
+                        tile.CurrentType.typeOfWall[(int) orientation] =
+                            Util.Next(tile.CurrentType.typeOfWall[(int) orientation]);
+                        Target.SetTileInfo(int.Parse(tile.name), tile.CurrentType);
                         clicked = true;
                     }
                 }
