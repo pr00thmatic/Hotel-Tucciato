@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace Building {
+    [SelectionBase]
     public class Facade : MonoBehaviour {
         public static float tileSize = 4;
         public List<BuildingTileType> tilesInfo;
@@ -20,6 +21,12 @@ namespace Building {
         }
 
         public void Generate () {
+            if (content.persistentRoot == null) {
+                content.persistentRoot = transform;
+            }
+
+            if (tilePrototype == null) return;
+
             content.Clear();
             if (start == end) return;
             tileInstances = new List<BuildingTile>();

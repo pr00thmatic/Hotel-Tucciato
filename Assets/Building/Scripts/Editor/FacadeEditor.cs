@@ -65,6 +65,8 @@ namespace Building {
         bool BuildingTileEdition () {
             bool clicked = false;
 
+            if (Target.tileInstances == null) return false;
+
             foreach (BuildingTile tile in Target.tileInstances) {
                 foreach (CardinalPoint orientation in
                          System.Enum.GetValues(typeof(CardinalPoint))) {
