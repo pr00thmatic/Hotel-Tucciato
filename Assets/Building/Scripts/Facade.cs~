@@ -1,0 +1,36 @@
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace Building {
+    public class Facade : MonoBehaviour {
+        public static int tileSize;
+        public GameObject tilePrototype;
+        public ScriptGeneratedContent content;
+
+        public Vector3 start;
+        public Vector3 end;
+
+        public void Generate () {
+            content.Clear();
+
+            Vector3 forward = start - end;
+            int amount = (int) Mathf.Ceil(forward.magnitude / (float) tileSize);
+            float scale = forward.magnitude  / (float) amount * tileSize;
+            forward.Normalize();
+            // tiles are looking to the right
+            Quaternion tileRot = Quaternion.LookRotation(forward) *
+                Quaternion.Euler(0, 90, 0);
+
+            content.DisposableRoot.rotation = tileRot;
+            // content.
+
+            for (int i=0; i<amount; i++) {
+                // instantiate with a rotation and position
+                WallTile created = Instantiate(tilePrototype, content.DisposableRoot).
+                    GetComponent<WallTile>();
+                created.transform.rotation = tileRot;
+            }
+        }
+    }
+}

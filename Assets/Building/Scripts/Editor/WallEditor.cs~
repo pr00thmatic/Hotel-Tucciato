@@ -1,0 +1,26 @@
+using UnityEditor;
+using UnityEngine;
+
+// GUILayout.Button("label")
+// Handles.Button(pos, rot, size1, size2, Handles.RectangleHandleCap)
+// Handles.PositionHandle(pos, rot)
+// EditorUtility.SetDirty(gameObject);
+[CustomEditor(typeof(Walls))]
+public class WallEditor : Editor {
+Walls    _parsedTarget;
+Walls    Target {
+        get {
+            if (_parsedTarget == null) _parsedTarget = (Walls) target;
+            return _parsedTarget;
+        }
+    }
+    
+    public override void OnInspectorGUI () {
+        DrawDefaultInspector();
+        GUILayout.Toggle();
+    }
+    
+    void OnSceneGUI () {
+        
+    }
+}
