@@ -55,14 +55,13 @@ namespace Building {
         bool BuildingTileEdition () {
             bool clicked = false;
 
-            int i=0;
             foreach (BuildingTile tile in Target.tileInstances) {
                 foreach (CardinalPoint orientation in
                          System.Enum.GetValues(typeof(CardinalPoint))) {
                     if (DrawWallButton(tile, orientation)) {
                         tile.CurrentType.typeOfWall[orientation] =
                             Util.Next(tile.CurrentType.typeOfWall[orientation]);
-                        Target.tilesInfo[int.Parse(tile.name)] = tile.CurrentType;
+                        Target.SetTileInfo(int.Parse(tile.name), tile.CurrentType);
                         clicked = true;
                     }
                 }
