@@ -20,6 +20,10 @@ namespace Building {
         public override void OnInspectorGUI () {
             DrawDefaultInspector();
             if (GUILayout.Button("Generate")) Target.Generate();
+            if (GUILayout.Button("Reset")) {
+                Target.ClearTilesInfo();
+                Target.Generate();
+            }
 
             if (GUI.changed) {
                 EditorUtility.SetDirty(Target);

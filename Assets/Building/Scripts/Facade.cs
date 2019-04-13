@@ -20,6 +20,11 @@ namespace Building {
             }
         }
 
+        public void ClearTilesInfo () {
+            tilesInfo = new List<BuildingTileType>();
+            for (int i=0; i<tileInstances.Count; i++) AddBlankTileTypeInfo();
+        }
+
         public void Generate () {
             if (content.persistentRoot == null) {
                 content.persistentRoot = transform;
