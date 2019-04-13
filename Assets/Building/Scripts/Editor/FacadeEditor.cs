@@ -52,34 +52,35 @@ namespace Building {
             }
         }
 
-        void BuildingTileEdition () {
+        bool BuildingTileEdition () {
+            bool clicked = false;
+
             int i=0;
             foreach (BuildingTile tile in Target.tileInstances) {
                 foreach (CardinalPoint orientation in
                          System.Enum.GetValues(typeof(CardinalPoint))) {
-                    DrawWallButton(tile, orientation);
+                    if (DrawWallButton(tile, orientation)) {
+                        tile.CurrentType.typeOfWall[orientation] =
+                            Util.Next(tile.CurrentType.typeOfWall[orientation]);
+                        Target.tilesInfo[int.Parse(tile.name)] = tile.CurrentType;
+                        clicked = true;
+                    }
                 }
-
-                // // foreach ()
-
-                //     tile.CurrentType.typeOfWall["north"] =
-                //         Util.Next(tile.CurrentType.typeOfWall["north"]);
-                //     tile.UpdateBuildingType();
-
-                //     Target.tilesInfo[i] = tile.CurrentType;
-                // }
-
-                // i++;
             }
+
+            return clicked;
         }
 
         void OnSceneGUI () {
             Tools.current = Tool.None;
 
             EndAndStart();
-            BuildingTileEdition();
+            bool edited = BuildingTileEdition();
+            if (edited) {
+                Target.Generate();
+            }
 
-            if (GUI.changed) {
+            if (GUI.changed || edited) {
                 EditorUtility.SetDirty(Target);
                 EditorSceneManager.MarkSceneDirty(Target.gameObject.scene);
             }

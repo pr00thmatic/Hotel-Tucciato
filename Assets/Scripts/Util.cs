@@ -14,15 +14,8 @@ public class Util {
     }
 
     public static WallType Next (WallType type) {
-        int index = (int) type;
-        if (index >= 100) {
-            index = 0;
-        } else {
-            index++;
-            index %= WallType.GetValues(typeof(WallType)).Length-1;
-        }
-
-        return (WallType) index;
+        return (WallType)
+            (((int) type + 1) % WallType.GetValues(typeof(WallType)).Length);
     }
 
     public static Vector3 UnitVector (CardinalPoint point) {
