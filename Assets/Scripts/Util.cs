@@ -24,4 +24,20 @@ public class Util {
 
         return (WallType) index;
     }
+
+    public static Vector3 UnitVector (CardinalPoint point) {
+        switch (point) {
+            case CardinalPoint.north:
+                return new Vector3(0, 0, -1);
+            case CardinalPoint.east:
+                return new Vector3(-1, 0, 0);
+            case CardinalPoint.south:
+                return new Vector3(0, 0, 1);
+            case CardinalPoint.west:
+                return new Vector3(1, 0, 0);
+
+        }
+
+        return Vector3.zero;
+    }
 }
