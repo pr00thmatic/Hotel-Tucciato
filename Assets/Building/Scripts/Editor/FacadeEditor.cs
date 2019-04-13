@@ -28,23 +28,13 @@ namespace Building {
         }
 
         bool DrawWallButton (BuildingTile tile, CardinalPoint orientation) {
-            Vector3 pos = tile.transform.localPosition;
-            Vector2 size = new Vector2(1, 1) * 0.8f * Facade.tileSize;
+            float size = Facade.tileSize * 0.1f;
+            Vector3 pos = tile.transform.localPosition +
+                (tile.transform.forward - tile.transform.right) * (Facade.tileSize/2f);
+            pos += Util.UnitVector(orientation) * (Facade.tileSize/2f - size * 2);
 
-            if (orientation == CardinalPoint.south || orientation == CardinalPoint.north) {
-                size = new Vector3(size.x, size.y * 0.3f);
-            } else {
-                size = new Vector3(size.x * 0.3f, size.y);
-            }
-
-            if (orientation == CardinalPoint.south) {
-                pos += tile.transform.forward * (Facade.tileSize - size.y);
-            } else if (orientation == CardinalPoint.east) {
-                pos += -tile.transform.right * (Facade.tileSize - size.x);
-            }
-
-            return Handles.Button(pos, Quaternion.identity, size.x,
-                                  size.y, Handles.RectangleHandleCap);
+            return Handles.Button(pos, Quaternion.identity * Quaternion.Euler(90, 0, 0),
+                                  size, size, Handles.RectangleHandleCap);
         }
 
         void EndAndStart () {
@@ -62,29 +52,35 @@ namespace Building {
             }
         }
 
-        void BuildingTileEdition () {
+        bool BuildingTileEdition () {
+            bool clicked = false;
+
             int i=0;
             foreach (BuildingTile tile in Target.tileInstances) {
-                // // foreach ()
-
-                //     tile.CurrentType.typeOfWall["north"] =
-                //         Util.Next(tile.CurrentType.typeOfWall["north"]);
-                //     tile.UpdateBuildingType();
-
-                //     Target.tilesInfo[i] = tile.CurrentType;
-                // }
-
-                // i++;
+                foreach (CardinalPoint orientation in
+                         System.Enum.GetValues(typeof(CardinalPoint))) {
+                    if (DrawWallButton(tile, orientation)) {
+                        tile.CurrentType.typeOfWall[orientation] =
+                            Util.Next(tile.CurrentType.typeOfWall[orientation]);
+                        Target.tilesInfo[int.Parse(tile.name)] = tile.CurrentType;
+                        clicked = true;
+                    }
+                }
             }
+
+            return clicked;
         }
 
         void OnSceneGUI () {
             Tools.current = Tool.None;
 
             EndAndStart();
-            BuildingTileEdition();
+            bool edited = BuildingTileEdition();
+            if (edited) {
+                Target.Generate();
+            }
 
-            if (GUI.changed) {
+            if (GUI.changed || edited) {
                 EditorUtility.SetDirty(Target);
                 EditorSceneManager.MarkSceneDirty(Target.gameObject.scene);
             }

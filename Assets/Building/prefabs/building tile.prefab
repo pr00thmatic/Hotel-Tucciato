@@ -185,7 +185,7 @@ PrefabInstance:
     - target: {fileID: 5646760709823970102, guid: d31d0b9bf88b585448c2d26bb9d4911a,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5646760709823970101, guid: d31d0b9bf88b585448c2d26bb9d4911a,
         type: 3}
@@ -250,7 +250,7 @@ PrefabInstance:
     - target: {fileID: 5646760709406824019, guid: d31d0b9bf88b585448c2d26bb9d4911a,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5646760710050359145, guid: d31d0b9bf88b585448c2d26bb9d4911a,
         type: 3}
@@ -280,7 +280,7 @@ PrefabInstance:
     - target: {fileID: 5646760709823970102, guid: d31d0b9bf88b585448c2d26bb9d4911a,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5646760709823970101, guid: d31d0b9bf88b585448c2d26bb9d4911a,
         type: 3}
@@ -335,6 +335,16 @@ PrefabInstance:
     - target: {fileID: 5646760709823970101, guid: d31d0b9bf88b585448c2d26bb9d4911a,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5646760711270303697, guid: d31d0b9bf88b585448c2d26bb9d4911a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5646760709406824019, guid: d31d0b9bf88b585448c2d26bb9d4911a,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -486,7 +496,7 @@ PrefabInstance:
     - target: {fileID: 5646760709823970102, guid: d31d0b9bf88b585448c2d26bb9d4911a,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5646760709823970101, guid: d31d0b9bf88b585448c2d26bb9d4911a,
         type: 3}
@@ -541,6 +551,16 @@ PrefabInstance:
     - target: {fileID: 5646760709823970101, guid: d31d0b9bf88b585448c2d26bb9d4911a,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5646760711270303697, guid: d31d0b9bf88b585448c2d26bb9d4911a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5646760709406824019, guid: d31d0b9bf88b585448c2d26bb9d4911a,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
