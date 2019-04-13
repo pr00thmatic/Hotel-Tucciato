@@ -32,15 +32,16 @@ namespace Building {
             tileInstances = new List<BuildingTile>();
 
             Vector3 forward = start - end;
-            int amount = (int) Mathf.Ceil(forward.magnitude / (float) tileSize);
-            UpdateTilesInfoSize(Mathf.Max(amount+1, 20));
+            int amount =
+                (int) Mathf.Min(20, Mathf.Ceil(forward.magnitude / (float) tileSize));
+            UpdateTilesInfoSize(amount);
             float scale = forward.magnitude / (amount * tileSize);
             forward.Normalize();
             // tiles are looking to the right
             Quaternion tileRot = Quaternion.LookRotation(forward) *
                 Quaternion.Euler(0, 90, 0);
 
-            for (int i=0; i<Mathf.Min(amount, 20); i++) {
+            for (int i=0; i<amount; i++) {
                 BuildingTile created = Instantiate(tilePrototype).
                     GetComponent<BuildingTile>();
 
@@ -54,7 +55,7 @@ namespace Building {
                 tileInstances.Add(created);
             }
 
-            if (amount > 20) {
+            if (amount >= 20) {
                 Debug.LogWarning("the amount of required tiles is bigger than supported");
             }
         }
