@@ -34,3 +34,10 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# emacs files
+*~
+\#*
+
+# blender files
+*.blend1
