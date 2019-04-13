@@ -27,19 +27,19 @@ namespace Building {
             }
         }
 
-        bool DrawWallButton (BuildingTile tile, string orientation) {
+        bool DrawWallButton (BuildingTile tile, CardinalPoint orientation) {
             Vector3 pos = tile.transform.localPosition;
             Vector2 size = new Vector2(1, 1) * 0.8f * Facade.tileSize;
 
-            if (orientation == "south" || orientation == "north") {
+            if (orientation == CardinalPoint.south || orientation == CardinalPoint.north) {
                 size = new Vector3(size.x, size.y * 0.3f);
             } else {
                 size = new Vector3(size.x * 0.3f, size.y);
             }
 
-            if (orientation == "south") {
+            if (orientation == CardinalPoint.south) {
                 pos += tile.transform.forward * (Facade.tileSize - size.y);
-            } else if (orientation == "east") {
+            } else if (orientation == CardinalPoint.east) {
                 pos += -tile.transform.right * (Facade.tileSize - size.x);
             }
 
@@ -66,7 +66,7 @@ namespace Building {
             int i=0;
             foreach (BuildingTile tile in Target.tileInstances) {
                 // // foreach ()
-                
+
                 //     tile.CurrentType.typeOfWall["north"] =
                 //         Util.Next(tile.CurrentType.typeOfWall["north"]);
                 //     tile.UpdateBuildingType();

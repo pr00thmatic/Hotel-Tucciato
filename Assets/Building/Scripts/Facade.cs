@@ -32,7 +32,7 @@ namespace Building {
 
                 if (!tilesInfo.ContainsKey(i)) {
                     tilesInfo[i] = new BuildingTileType();
-                    tilesInfo[i].typeOfWall["north"] = WallType.simple;
+                    tilesInfo[i].typeOfWall[CardinalPoint.north] = WallType.simple;
                 }
 
                 created.CurrentType = tilesInfo[i];

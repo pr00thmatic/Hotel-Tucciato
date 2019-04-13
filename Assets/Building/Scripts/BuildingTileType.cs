@@ -5,13 +5,13 @@ using System.Collections.Generic;
 namespace Building {
     [System.Serializable]
     public class BuildingTileType {
-        public Dictionary<string, WallType> typeOfWall =
-            new Dictionary<string, WallType>() {
+        public Dictionary<CardinalPoint, WallType> typeOfWall =
+            new Dictionary<CardinalPoint, WallType>() {
 
-            { "north", WallType.none },
-            { "west", WallType.none },
-            { "east", WallType.none },
-            { "south", WallType.none }
+            { CardinalPoint.north, WallType.none },
+            { CardinalPoint.west, WallType.none },
+            { CardinalPoint.east, WallType.none },
+            { CardinalPoint.south, WallType.none }
 
         };
     }

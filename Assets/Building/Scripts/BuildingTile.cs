@@ -18,7 +18,9 @@ namespace Building {
         public void UpdateBuildingType () {
             foreach (Transform wall in transform.Find("walls")) {
                 WallTile wt = wall.GetComponent<WallTile>();
-                wt.SetType(CurrentType.typeOfWall[wall.name]);
+                CardinalPoint orientation = (CardinalPoint)
+                    System.Enum.Parse(typeof(CardinalPoint), wall.name);
+                wt.SetType(CurrentType.typeOfWall[orientation]);
             }
         }
     }
