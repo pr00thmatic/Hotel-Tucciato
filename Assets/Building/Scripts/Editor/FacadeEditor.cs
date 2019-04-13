@@ -43,7 +43,8 @@ namespace Building {
                 pos += -tile.transform.right * (Facade.tileSize - size.x);
             }
 
-            return Handles.Button(pos, size.x, size.y, Handles.RectangleHandleCap);
+            return Handles.Button(pos, Quaternion.identity, size.x,
+                                  size.y, Handles.RectangleHandleCap);
         }
 
         void EndAndStart () {
@@ -64,16 +65,16 @@ namespace Building {
         void BuildingTileEdition () {
             int i=0;
             foreach (BuildingTile tile in Target.tileInstances) {
-                // foreach ()
+                // // foreach ()
                 
-                    tile.CurrentType.typeOfWall["north"] =
-                        Util.Next(tile.CurrentType.typeOfWall["north"]);
-                    tile.UpdateBuildingType();
+                //     tile.CurrentType.typeOfWall["north"] =
+                //         Util.Next(tile.CurrentType.typeOfWall["north"]);
+                //     tile.UpdateBuildingType();
 
-                    Target.tilesInfo[i] = tile.CurrentType;
-                }
+                //     Target.tilesInfo[i] = tile.CurrentType;
+                // }
 
-                i++;
+                // i++;
             }
         }
 
