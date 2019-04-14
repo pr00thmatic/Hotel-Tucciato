@@ -1,46 +1,24 @@
 fileFormatVersion: 2
-guid: da0b755485391224bb5c6c5765f215e0
+guid: 08ab5dfc34c8fc94f9d58751f6e210a4
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: wall with window
-    100004: window
-    100006: wall with window.001
-    100008: curtain
-    100010: halos
-    100012: left curtain grabber
-    100014: right curtain grabber
-    400000: //RootNode
-    400002: wall with window
-    400004: window
-    400006: wall with window.001
-    400008: curtain
-    400010: halos
-    400012: left curtain grabber
-    400014: right curtain grabber
+    100000: halo
+    100002: key
+    100004: key 1
+    100006: //RootNode
+    100008: keys armature
+    100010: label
+    400000: halo
+    400002: key
+    400004: key 1
+    400006: //RootNode
+    400008: keys armature
+    400010: label
     2100000: No Name
-    2300000: wall with window
-    2300002: window
-    2300004: wall with window.001
-    2300006: curtain
-    2300008: halos
-    2300010: left curtain grabber
-    2300012: right curtain grabber
-    3300000: wall with window
-    3300002: window
-    3300004: wall with window.001
-    3300006: curtain
-    3300008: halos
-    3300010: left curtain grabber
-    3300012: right curtain grabber
-    4300000: window
-    4300002: wall with window
-    4300004: wall with window.001
-    4300006: curtain
-    4300008: halos
-    4300010: right curtain grabber
-    4300012: left curtain grabber
+    4300000: key
+    9500000: //RootNode
+    13700000: key
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -81,7 +59,7 @@ ModelImporter:
     importCameras: 1
     importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
@@ -93,8 +71,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 0
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -121,7 +99,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

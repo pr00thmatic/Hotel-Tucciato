@@ -7,8 +7,8 @@ namespace Building {
         public Transform door;
         public WallType Type { get => _type; }
         public float DoorAngle {
-            get => door.rotation.eulerAngles.y;
-            set => door.rotation = Quaternion.Euler(-90, value, 0);
+            get => door.localRotation.eulerAngles.y;
+            set => door.localRotation = Quaternion.Euler(-90, value, 0);
         }
         WallType _type;
 
