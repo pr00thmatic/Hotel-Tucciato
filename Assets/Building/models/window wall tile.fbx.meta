@@ -7,20 +7,40 @@ ModelImporter:
     100002: wall with window
     100004: window
     100006: wall with window.001
+    100008: curtain
+    100010: halos
+    100012: left curtain grabber
+    100014: right curtain grabber
     400000: //RootNode
     400002: wall with window
     400004: window
     400006: wall with window.001
+    400008: curtain
+    400010: halos
+    400012: left curtain grabber
+    400014: right curtain grabber
     2100000: No Name
     2300000: wall with window
     2300002: window
     2300004: wall with window.001
+    2300006: curtain
+    2300008: halos
+    2300010: left curtain grabber
+    2300012: right curtain grabber
     3300000: wall with window
     3300002: window
     3300004: wall with window.001
+    3300006: curtain
+    3300008: halos
+    3300010: left curtain grabber
+    3300012: right curtain grabber
     4300000: window
     4300002: wall with window
     4300004: wall with window.001
+    4300006: curtain
+    4300008: halos
+    4300010: right curtain grabber
+    4300012: left curtain grabber
   externalObjects: {}
   materials:
     importMaterials: 1

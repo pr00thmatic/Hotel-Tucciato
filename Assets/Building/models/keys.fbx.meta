@@ -1,64 +1,24 @@
 fileFormatVersion: 2
-guid: a62685d78f7263945a5c1a27a128365d
+guid: 08ab5dfc34c8fc94f9d58751f6e210a4
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: //RootNode
-    100002: Cube.001
-    100004: Cube.002
-    100006: Cube.004
-    100008: Cube.005
-    100010: door
-    100012: floor
-    100014: plate
-    100016: roof
-    100018: wall with door
-    100020: door joint
-    100022: hinge
-    100024: knob
-    400000: //RootNode
-    400002: Cube.001
-    400004: Cube.002
-    400006: Cube.004
-    400008: Cube.005
-    400010: door
-    400012: floor
-    400014: plate
-    400016: roof
-    400018: wall with door
-    400020: door joint
-    400022: hinge
-    400024: knob
-    2100000: Material
-    2100002: Material.001
-    2100004: No Name
-    2300000: Cube.001
-    2300002: Cube.002
-    2300004: Cube.004
-    2300006: Cube.005
-    2300008: door
-    2300010: floor
-    2300012: plate
-    2300014: roof
-    2300016: wall with door
-    3300000: Cube.001
-    3300002: Cube.002
-    3300004: Cube.004
-    3300006: Cube.005
-    3300008: door
-    3300010: floor
-    3300012: plate
-    3300014: roof
-    3300016: wall with door
-    4300000: Cube.001
-    4300002: Cube.004
-    4300004: Cube.005
-    4300006: Cube.002
-    4300008: plate
-    4300010: floor
-    4300012: door
-    4300014: roof
-    4300016: wall with door
+    100000: halo
+    100002: key
+    100004: key 1
+    100006: //RootNode
+    100008: keys armature
+    100010: label
+    400000: halo
+    400002: key
+    400004: key 1
+    400006: //RootNode
+    400008: keys armature
+    400010: label
+    2100000: No Name
+    4300000: key
+    9500000: //RootNode
+    13700000: key
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -99,7 +59,7 @@ ModelImporter:
     importCameras: 1
     importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
@@ -111,8 +71,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 0
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -139,7 +99,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 

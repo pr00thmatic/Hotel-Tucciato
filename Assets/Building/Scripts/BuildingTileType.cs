@@ -5,11 +5,13 @@ using System.Collections.Generic;
 namespace Building {
     [System.Serializable]
     public class BuildingTileType {
-        public WallType[] typeOfWall = {
-            WallType.simple,
-            WallType.none,
-            WallType.none,
-            WallType.none
-        };
+        public WallTileInfo[] walls = new WallTileInfo[4];
+
+        public BuildingTileType () {
+            for (int i=0; i<4; i++) {
+                walls[0] = new WallTileInfo();
+            }
+            walls[(int) CardinalPoint.north].type = WallType.simple;
+        }
     }
 }

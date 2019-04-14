@@ -6,8 +6,20 @@ namespace Building {
     public class BuildingTile : MonoBehaviour {
         public BuildingTileType _currentType = new BuildingTileType();
         public BuildingTileType CurrentType {
-            get => _currentType;
+            get {
+                UpdateState();
+                return _currentType;
+            }
             set => SetBuildingTileType(value);
+        }
+
+        public void UpdateState () {
+            foreach (Transform wall in transform.Find("walls")) {
+                WallTile wt = wall.GetComponent<WallTile>();
+                CardinalPoint orientation = (CardinalPoint)
+                    CardinalPoint.Parse(typeof(CardinalPoint), wt.name);
+                _currentType.walls[(int) orientation].doorAngle = wt.DoorAngle;
+            }
         }
 
         public void SetBuildingTileType (BuildingTileType type) {
@@ -20,7 +32,7 @@ namespace Building {
                 WallTile wt = wall.GetComponent<WallTile>();
                 CardinalPoint orientation = (CardinalPoint)
                     System.Enum.Parse(typeof(CardinalPoint), wall.name);
-                wt.SetType(CurrentType.typeOfWall[(int) orientation]);
+                wt.SetType(_currentType.walls[(int) orientation]);
             }
         }
     }

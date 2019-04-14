@@ -25,6 +25,12 @@ namespace Building {
             for (int i=0; i<tileInstances.Count; i++) AddBlankTileTypeInfo();
         }
 
+        public void SaveState () {
+            for (int i=0; i<tileInstances.Count; i++) {
+                tilesInfo[i] = tileInstances[i].CurrentType;
+            }
+        }
+
         public void Generate () {
             if (content.persistentRoot == null) {
                 content.persistentRoot = transform;
@@ -32,9 +38,10 @@ namespace Building {
 
             if (tilePrototype == null) return;
 
+            SaveState();
             content.Clear();
-            if (start == end) return;
             tileInstances = new List<BuildingTile>();
+            if (start == end) return;
 
             Vector3 forward = start - end;
             int amount =
@@ -72,7 +79,6 @@ namespace Building {
 
         void AddBlankTileTypeInfo () {
             tilesInfo.Add(new BuildingTileType());
-            tilesInfo[tilesInfo.Count-1].typeOfWall[(int) CardinalPoint.north] = WallType.simple;
         }
     }
 }
