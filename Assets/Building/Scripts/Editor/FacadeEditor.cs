@@ -35,9 +35,9 @@ namespace Building {
             float size = Facade.tileSize * 0.1f;
             Vector3 pos = tile.transform.localPosition +
                 (tile.transform.forward - tile.transform.right) * (Facade.tileSize/2f);
-            pos += Util.UnitVector(orientation) * (Facade.tileSize/2f - size * 2);
+            pos += tile.transform.TransformDirection(Util.UnitVector(orientation)) * (Facade.tileSize/2f - size * 2);
 
-            return Handles.Button(pos, Quaternion.identity * Quaternion.Euler(90, 0, 0),
+            return Handles.Button(pos, tile.transform.rotation * Quaternion.Euler(90, 0, 0),
                                   size, size, Handles.RectangleHandleCap);
         }
 
