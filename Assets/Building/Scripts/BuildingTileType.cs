@@ -9,9 +9,12 @@ namespace Building {
 
         public BuildingTileType () {
             for (int i=0; i<4; i++) {
-                walls[0] = new WallTileInfo();
+                walls[i] = new WallTileInfo();
             }
-            walls[(int) CardinalPoint.north].type = WallType.simple;
+
+            walls[(int) CardinalPoint.south].type =
+                walls[(int) CardinalPoint.north].type =
+                WallType.simple;
         }
     }
 }
