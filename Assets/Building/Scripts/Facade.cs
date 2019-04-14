@@ -72,7 +72,6 @@ namespace Building {
 
         void AddBlankTileTypeInfo () {
             tilesInfo.Add(new BuildingTileType());
-            tilesInfo[tilesInfo.Count-1].typeOfWall[(int) CardinalPoint.north] = WallType.simple;
         }
     }
 }

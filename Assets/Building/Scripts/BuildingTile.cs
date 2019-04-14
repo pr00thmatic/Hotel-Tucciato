@@ -20,7 +20,7 @@ namespace Building {
                 WallTile wt = wall.GetComponent<WallTile>();
                 CardinalPoint orientation = (CardinalPoint)
                     System.Enum.Parse(typeof(CardinalPoint), wall.name);
-                wt.SetType(CurrentType.typeOfWall[(int) orientation]);
+                wt.SetType(CurrentType.walls[(int) orientation]);
             }
         }
     }

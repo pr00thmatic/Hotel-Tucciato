@@ -4,16 +4,22 @@ using System.Collections.Generic;
 
 namespace Building {
     public class WallTile : MonoBehaviour {
+        public Transform door;
         public WallType Type { get => _type; }
+        public float DoorAngle {
+            get => door.rotation.eulerAngles.y;
+            set => door.rotation = Quaternion.Euler(-90, value, 0);
+        }
         WallType _type;
 
-        public void SetType (WallType type) {
-            this._type = type;
-
+        public void SetType (WallTileInfo info) {
+            _type = info.type;
             foreach (Transform wallTypeInstance in transform) {
                 wallTypeInstance.gameObject.
-                    SetActive(type.ToString() == wallTypeInstance.name);
+                    SetActive(info.type.ToString() == wallTypeInstance.name);
             }
+
+            DoorAngle = info.doorAngle;
         }
     }
 }
