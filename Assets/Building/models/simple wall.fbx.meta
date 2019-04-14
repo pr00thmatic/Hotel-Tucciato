@@ -4,11 +4,21 @@ ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
+    100002: inside simple wall
+    100004: shadow caster
     400000: //RootNode
+    400002: inside simple wall
+    400004: shadow caster
     2100000: No Name
     2300000: //RootNode
+    2300002: inside simple wall
+    2300004: shadow caster
     3300000: //RootNode
+    3300002: inside simple wall
+    3300004: shadow caster
     4300000: simple wall
+    4300002: inside simple wall
+    4300004: shadow caster
   externalObjects: {}
   materials:
     importMaterials: 1

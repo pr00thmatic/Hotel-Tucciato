@@ -13,6 +13,9 @@ ModelImporter:
     100014: plate
     100016: roof
     100018: wall with door
+    100020: door joint
+    100022: hinge
+    100024: knob
     400000: //RootNode
     400002: Cube.001
     400004: Cube.002
@@ -23,6 +26,9 @@ ModelImporter:
     400014: plate
     400016: roof
     400018: wall with door
+    400020: door joint
+    400022: hinge
+    400024: knob
     2100000: Material
     2100002: Material.001
     2100004: No Name
