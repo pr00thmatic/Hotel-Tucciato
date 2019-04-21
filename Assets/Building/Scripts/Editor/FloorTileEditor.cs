@@ -7,12 +7,12 @@ namespace Building {
     // Handles.Button(pos, rot, size1, size2, Handles.RectangleHandleCap)
     // Handles.PositionHandle(pos, rot)
     // EditorUtility.SetDirty(gameObject);
-    [CustomEditor(typeof(Facade))]
-    public class FacadeEditor : Editor {
-        Facade _parsedTarget;
-        Facade Target {
+    [CustomEditor(typeof(FloorTile))]
+    public class FloorTileEditor : Editor {
+        FloorTile _parsedTarget;
+        FloorTile Target {
             get {
-                if (_parsedTarget == null) _parsedTarget = (Facade) target;
+                if (_parsedTarget == null) _parsedTarget = (FloorTile) target;
                 return _parsedTarget;
             }
         }
@@ -32,10 +32,12 @@ namespace Building {
         }
 
         bool DrawWallButton (BuildingTile tile, CardinalPoint orientation) {
-            float size = Facade.tileSize * 0.1f;
+            float size = FloorTile.tileSize * 0.1f;
             Vector3 pos = tile.transform.localPosition +
-                (tile.transform.forward - tile.transform.right) * (Facade.tileSize/2f);
-            pos += tile.transform.TransformDirection(Util.UnitVector(orientation)) * (Facade.tileSize/2f - size * 2);
+                (tile.transform.forward - tile.transform.right) *
+                (FloorTile.tileSize/2f);
+            pos += tile.transform.TransformDirection(Util.UnitVector(orientation)) *
+                (FloorTile.tileSize/2f - size * 2);
 
             return Handles.Button(pos, tile.transform.rotation * Quaternion.Euler(90, 0, 0),
                                   size, size, Handles.RectangleHandleCap);
@@ -75,9 +77,7 @@ namespace Building {
                 foreach (CardinalPoint orientation in
                          System.Enum.GetValues(typeof(CardinalPoint))) {
                     if (DrawWallButton(tile, orientation)) {
-                        WallTileInfo wallInfo = tile.CurrentType.walls[(int) orientation];
-                        wallInfo.type = Util.Next(wallInfo.type);
-                        Target.SetTileInfo(int.Parse(tile.name), tile.CurrentType);
+                        tile.ShuffleWall(orientation);
                         clicked = true;
                     }
                 }

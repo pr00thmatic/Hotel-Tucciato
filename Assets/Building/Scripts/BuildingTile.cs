@@ -4,36 +4,31 @@ using System.Collections.Generic;
 
 namespace Building {
     public class BuildingTile : MonoBehaviour {
-        public BuildingTileType _currentType = new BuildingTileType();
-        public BuildingTileType CurrentType {
-            get {
-                UpdateState();
-                return _currentType;
-            }
-            set => SetBuildingTileType(value);
+        public void ShuffleWall (CardinalPoint wallPos) {
+            WallTile wall = transform.Find("walls/" + wallPos).GetComponent<WallTile>();
+            wall.Shuffle();
         }
 
-        public void UpdateState () {
-            foreach (Transform wall in transform.Find("walls")) {
-                WallTile wt = wall.GetComponent<WallTile>();
-                CardinalPoint orientation = (CardinalPoint)
-                    CardinalPoint.Parse(typeof(CardinalPoint), wt.name);
-                _currentType.walls[(int) orientation].doorAngle = wt.DoorAngle;
+        public void SetState (BuildingTileState state) {
+            foreach (Transform child in transform.Find("walls")) {
+                WallTile wall = child.GetComponent<WallTile>();
+                CardinalPoint wallPos = (CardinalPoint) CardinalPoint.
+                    Parse(typeof(CardinalPoint), wall.name);
+                wall.SetState(state.walls[(int) wallPos]);
             }
         }
 
-        public void SetBuildingTileType (BuildingTileType type) {
-            _currentType = type;
-            UpdateBuildingType();
-        }
+        public BuildingTileState GetState () {
+            BuildingTileState state = new BuildingTileState();
 
-        public void UpdateBuildingType () {
-            foreach (Transform wall in transform.Find("walls")) {
-                WallTile wt = wall.GetComponent<WallTile>();
-                CardinalPoint orientation = (CardinalPoint)
-                    System.Enum.Parse(typeof(CardinalPoint), wall.name);
-                wt.SetType(_currentType.walls[(int) orientation]);
+            foreach (Transform child in transform.Find("walls")) {
+                WallTile wall = child.GetComponent<WallTile>();
+                CardinalPoint wallPos = (CardinalPoint) CardinalPoint.
+                    Parse(typeof(CardinalPoint), wall.name);
+                state.walls[(int) wallPos] = wall.GetState();
             }
+
+            return state;
         }
     }
 }

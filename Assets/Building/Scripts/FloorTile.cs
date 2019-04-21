@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Building {
     [SelectionBase]
-    public class Facade : MonoBehaviour {
+    public class FloorTile : MonoBehaviour {
         public static float tileSize = 4;
-        public List<BuildingTileType> tilesInfo;
+        public List<BuildingTileState> tileStates;
         public List<BuildingTile> tileInstances;
         public GameObject tilePrototype;
         public ScriptGeneratedContent content;
@@ -15,19 +15,19 @@ namespace Building {
         public Vector3 end;
 
         public void UpdateTilesInfoSize (int newSize) {
-            for (int i=0; i<=(newSize-tilesInfo.Count); i++) {
+            for (int i=0; i<=(newSize-tileStates.Count); i++) {
                 AddBlankTileTypeInfo();
             }
         }
 
         public void ClearTilesInfo () {
-            tilesInfo = new List<BuildingTileType>();
+            tileStates = new List<BuildingTileState>();
             for (int i=0; i<tileInstances.Count; i++) AddBlankTileTypeInfo();
         }
 
         public void SaveState () {
             for (int i=0; i<tileInstances.Count; i++) {
-                tilesInfo[i] = tileInstances[i].CurrentType;
+                tileStates[i] = tileInstances[i].GetState();
             }
         }
 
@@ -57,7 +57,7 @@ namespace Building {
                 BuildingTile created = Instantiate(tilePrototype).
                     GetComponent<BuildingTile>();
 
-                created.CurrentType = tilesInfo[i];
+                created.SetState(tileStates[i]);
                 created.transform.parent = content.DisposableRoot;
                 created.transform.localRotation = tileRot;
                 created.transform.localPosition =
@@ -72,13 +72,13 @@ namespace Building {
             }
         }
 
-        public void SetTileInfo (int index, BuildingTileType type) {
+        public void SetTileInfo (int index, BuildingTileState type) {
             UpdateTilesInfoSize(index+1);
-            tilesInfo[index] = type;
+            tileStates[index] = type;
         }
 
         void AddBlankTileTypeInfo () {
-            tilesInfo.Add(new BuildingTileType());
+            tileStates.Add(new BuildingTileState());
         }
     }
 }

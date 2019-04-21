@@ -15,11 +15,6 @@ namespace Building {
 
         public override void OnInspectorGUI () {
             DrawDefaultInspector();
-            Target.SetType(new WallTileInfo{
-                    type = (WallType) EditorGUILayout.EnumPopup("Wall type: ", Target.Type),
-                    doorAngle = Target.door.rotation.eulerAngles.y
-                });
-
             GUILayout.Label("Door angle: " + Target.DoorAngle);
 
             if (GUI.changed) {
