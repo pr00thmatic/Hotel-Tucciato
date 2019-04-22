@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2665241238398476042}
-  - component: {fileID: 2723733113561502929}
+  - component: {fileID: 7126263929723619507}
   m_Layer: 0
   m_Name: facade
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2723733113561502929
+--- !u!114 &7126263929723619507
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,14 +40,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2846471857507176453}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31b173b3b75b7a44dbbcc89de54e532f, type: 3}
+  m_Script: {fileID: 11500000, guid: 59e8c1d056de7294297ba6b4b8ef071e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilesInfo: []
+  tileStates: []
   tileInstances: []
   tilePrototype: {fileID: 7195238268787679830, guid: 71b683e520ba8d946b71a2782422033c,
     type: 3}
   content:
-    persistentRoot: {fileID: 2665241238398476042}
+    persistentRoot: {fileID: 0}
   start: {x: 0, y: 0, z: 0}
-  end: {x: 4, y: 0, z: 0}
+  end: {x: 0, y: 0, z: 0}

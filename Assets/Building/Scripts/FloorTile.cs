@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -54,8 +55,14 @@ namespace Building {
                 Quaternion.Euler(0, 90, 0);
 
             for (int i=0; i<amount; i++) {
+                #if UNITY_EDITOR
+                BuildingTile created =
+                    ((GameObject) PrefabUtility.InstantiatePrefab(tilePrototype)).
+                    GetComponent<BuildingTile>();
+                #else
                 BuildingTile created = Instantiate(tilePrototype).
                     GetComponent<BuildingTile>();
+                #endif
 
                 created.SetState(tileStates[i]);
                 created.transform.parent = content.DisposableRoot;
