@@ -21,21 +21,13 @@ public class LightBulb : MonoBehaviour {
     }
 
     public void Toggle (bool value) {
-        if (value) TurnOn();
-        else TurnOff();
-    }
+        isOn = value;
+        lightSource.enabled = value;
 
-    public void TurnOn () {
-        isOn = true;
-
-        lightSource.enabled = true;
-        model.material = onMaterial;
-    }
-
-    public void TurnOff () {
-        isOn = false;
-
-        lightSource.enabled = false;
-        model.material = offMaterial;
+        if (isOn) {
+            model.material = onMaterial;
+        } else {
+            model.material = offMaterial;
+        }
     }
 }
