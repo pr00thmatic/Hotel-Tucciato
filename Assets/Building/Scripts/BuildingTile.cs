@@ -6,6 +6,10 @@ namespace Building {
     public class BuildingTile : MonoBehaviour {
         public LightBulb ceilingLight;
 
+        public WallTile GetWall (CardinalPoint location) {
+            return transform.Find("walls/" + location).GetComponent<WallTile>();
+        }
+
         public void ToggleCeilingLightExistence () {
             ceilingLight.SetActive(!ceilingLight.isActive);
         }
@@ -15,7 +19,7 @@ namespace Building {
         }
 
         public void ShuffleWall (CardinalPoint wallPos) {
-            WallTile wall = transform.Find("walls/" + wallPos).GetComponent<WallTile>();
+            WallTile wall = GetWall(wallPos);
             wall.Shuffle();
         }
 
@@ -29,6 +33,7 @@ namespace Building {
 
             ceilingLight.SetActive(state.ceilingLight.exists);
             ceilingLight.Toggle(state.ceilingLight.isOn);
+            transform.localPosition = state.localPosition;
         }
 
         public BuildingTileState GetState () {
@@ -43,6 +48,7 @@ namespace Building {
 
             state.ceilingLight.exists = ceilingLight.isActive;
             state.ceilingLight.isOn = ceilingLight.isOn;
+            state.localPosition = transform.localPosition;
 
             return state;
         }
