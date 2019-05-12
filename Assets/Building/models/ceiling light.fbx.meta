@@ -1,55 +1,14 @@
 fileFormatVersion: 2
-guid: 8a3d82196a3a90741b24b97e35f9b46f
+guid: 6c8999eabb6f02849a052a7b49848168
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: Cube
-    100004: Cube.001
-    100006: Cube.005
-    100008: floor
-    100010: roof
-    100012: simple wall
-    100014: simple wall.001
-    100016: simple wall.002
     400000: //RootNode
-    400002: Cube
-    400004: Cube.001
-    400006: Cube.005
-    400008: floor
-    400010: roof
-    400012: simple wall
-    400014: simple wall.001
-    400016: simple wall.002
-    2100000: Material
-    2100002: No Name
-    2300000: Cube
-    2300002: Cube.001
-    2300004: Cube.005
-    2300006: floor
-    2300008: roof
-    2300010: simple wall
-    2300012: simple wall.001
-    2300014: simple wall.002
-    2300016: //RootNode
-    3300000: Cube
-    3300002: Cube.001
-    3300004: Cube.005
-    3300006: floor
-    3300008: roof
-    3300010: simple wall
-    3300012: simple wall.001
-    3300014: simple wall.002
-    3300016: //RootNode
-    4300000: Cube.005
-    4300002: Cube.001
-    4300004: Cube
-    4300006: floor
-    4300008: roof
-    4300010: simple wall
-    4300012: simple wall.002
-    4300014: simple wall.001
-    4300016: inside simple wall
+    2100000: No Name
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: Cylinder
   externalObjects: {}
   materials:
     importMaterials: 1
