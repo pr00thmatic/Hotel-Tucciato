@@ -5,28 +5,22 @@ using System.Collections.Generic;
 
 namespace Building {
     public class BuildingCell : MonoBehaviour {
-        public List<BuildingCell> connected;
+        public BuildingCell[] connected;
         public BuildingTile tile;
-        public bool IsPossible {
-            get {
-                foreach (CardinalPoint direction in Enum.GetValues(typeof(CardinalPoint))) {
-                    Vector3 unitVector = Util.UnitVector(direction);
-                    CardinalPoint opposite = Util.Direction(unitVector * -1);
-                    WallTile connectedWall = connected[(int) direction].tile.
-                        GetWall(opposite);
-
-                    if (connectedWall.CurrentType == WallType.door ||
-                        connectedWall.CurrentType == WallType.none) {
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-        }
 
         public void Initialize () {
             tile = GetComponent<BuildingTile>();
+            connected = new BuildingCell[4];
+        }
+
+        public void AddNeighbour (CardinalPoint location) {
+            BuildingCell neighbour = Instantiate(this.gameObject).
+                GetComponent<BuildingCell>();
+            connected[(int) location] = neighbour;
+            neighbour.connected[(int) Util.Opposite(location)] = this;
+            neighbour.transform.localPosition = transform.localPosition +
+                Util.UnitVector(location) * FloorTile.tileSize;
+            neighbour.transform.parent = transform.parent;
         }
     }
 }

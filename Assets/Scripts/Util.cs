@@ -32,7 +32,15 @@ public class Util {
         return CardinalPoint.north;
     }
 
+    public static CardinalPoint Opposite (CardinalPoint point) {
+        return Direction(UnitVector(point) * -1);
+    }
+
     public static Vector3 UnitVector (CardinalPoint point) {
         return unitVectors[(int) point];
+    }
+
+    public static CardinalPoint[] ListCardinalPoints () {
+        return Enum.GetValues(typeof(CardinalPoint)) as CardinalPoint[];
     }
 }

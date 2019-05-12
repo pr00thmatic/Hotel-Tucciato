@@ -12,25 +12,30 @@ namespace Building {
         #pragma warning restore 0649
         #endregion PREFAB_CONFIG
 
-
-        public List<BuildingCell> pieces;
+        public Dictionary<Coord, BuildingCell> pieces =
+            new Dictionary<Coord, BuildingCell>();
 
         public void Generate () {
             content.persistentRoot = transform;
-            pieces = new List<BuildingCell>();
+            pieces = new Dictionary<Coord, BuildingCell>();
             content.Clear();
 
-            if (pieces.Count == 0) {
-                pieces.Add(AddPiece(Vector3.zero));
-            }
+            Add(new Coord(0,0));
         }
 
-        public BuildingCell AddPiece (Vector3 localPosition) {
-            BuildingCell cell = Instantiate(prototype).AddComponent<BuildingCell>();
-            cell.transform.parent = content.DisposableRoot;
-            cell.transform.localPosition = localPosition;
-            cell.Initialize();
-            return cell;
+        public void Add (Coord pos) {
+            BuildingCell created = Instantiate(prototype).AddComponent<BuildingCell>();
+            pieces[pos] = created;
+            created.tile = created.GetComponent<BuildingTile>();
+            created.transform.parent = content.DisposableRoot;
+            created.transform.localPosition = pos.ToWorld(FloorTile.tileSize);
+        }
+
+        public void Remove (Coord pos) {
+            if (pieces.ContainsKey(pos) == false) return;
+
+            Util.SafeDestroy(pieces[pos].gameObject);
+            pieces.Remove(pos);
         }
     }
 }
