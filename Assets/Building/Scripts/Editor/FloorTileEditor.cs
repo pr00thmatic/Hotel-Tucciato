@@ -17,21 +17,7 @@ namespace Building {
             }
         }
 
-        bool DrawWallButton (BuildingTile tile, CardinalPoint orientation) {
-            float size = FloorTile.tileSize * 0.1f;
-            Vector3 pos = tile.transform.localPosition +
-                (tile.transform.forward - tile.transform.right) *
-                (FloorTile.tileSize/2f);
-            pos += tile.transform.TransformDirection(Util.UnitVector(orientation)) *
-                (FloorTile.tileSize/2f - size * 2);
-
-            return Handles.Button(pos, tile.transform.rotation * Quaternion.Euler(90, 0, 0),
-                                  size, size, Handles.RectangleHandleCap);
-        }
-
         void EndAndStart () {
-            Handles.matrix = Target.transform.localToWorldMatrix;
-
             Vector3 forward = Target.start - Target.end;
             Quaternion rot = forward == Vector3.zero? Quaternion.identity:
                 Quaternion.LookRotation(forward);
@@ -60,52 +46,10 @@ namespace Building {
             if (Target.tileInstances == null) return false;
 
             foreach (BuildingTile tile in Target.tileInstances) {
-                foreach (CardinalPoint orientation in
-                         System.Enum.GetValues(typeof(CardinalPoint))) {
-                    if (DrawWallButton(tile, orientation)) {
-                        tile.ShuffleWall(orientation);
-                        clicked = true;
-                    }
-                }
+                BuildingTileEditor.DrawGizmos(tile);
             }
 
             return clicked;
-        }
-
-        bool DrawLightControls () {
-            bool clicked = false;
-            foreach (BuildingTile tile in Target.tileInstances) {
-                if (DrawLightControl(tile)) {
-                    clicked = true;
-                }
-            }
-
-            return clicked;
-        }
-
-        bool DrawLightControl (BuildingTile tile) {
-            float size = FloorTile.tileSize * 0.25f;
-            Vector3 pos = tile.transform.localPosition + Vector3.up * 6 +
-                new Vector3(1, 0, -1) * FloorTile.tileSize/2f;
-            bool toggledActive =
-                Handles.Button(pos, tile.transform.rotation * Quaternion.Euler(90, 0, 0),
-                               size, size, Handles.CircleHandleCap);
-            bool toggledOnOff = false;
-            if (tile.ceilingLight.isActive) {
-                toggledOnOff = Handles.Button(pos + Vector3.right * size,
-                                              tile.transform.rotation,
-                                              size * 0.5f, size * 0.5f,
-                                              Handles.RectangleHandleCap);
-            }
-
-            if (toggledActive) {
-                tile.ToggleCeilingLightExistence();
-            }
-
-            if (toggledOnOff) {
-                tile.ToggleCeilingLight();
-            }
-            return toggledActive || toggledOnOff;
         }
 
         public override void OnInspectorGUI () {
@@ -123,16 +67,13 @@ namespace Building {
         }
 
         void OnSceneGUI () {
+            Handles.matrix = Target.transform.localToWorldMatrix;
             Tools.current = Tool.None;
 
             EndAndStart();
             bool edited = false;
             if (BuildingTileEdition()) {
                 Target.Generate();
-                edited = true;
-            }
-
-            if (DrawLightControls()) {
                 edited = true;
             }
 

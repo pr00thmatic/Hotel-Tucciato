@@ -1,3 +1,3 @@
 public enum CardinalPoint {
-    north, east, south, west
+    north = 0, east = 1, south = 2, west = 3
 }
