@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 [System.Serializable]
-public class Coord {
+public struct Coord {
     public int x;
     public int z;
 

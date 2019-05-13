@@ -38,6 +38,7 @@ sysinfo.txt
 # emacs files
 *~
 \#*
+.\#*
 
 # blender files
 *.blend1

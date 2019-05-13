@@ -71,8 +71,6 @@ public class MatrixBuildingEditor : Editor {
                     if (Mathf.Abs(xStep) == Mathf.Abs(zStep) ||
                         flags.ContainsKey(neighbour) ||
                         building.pieces.ContainsKey(neighbour)) {
-                        Debug.Log(neighbour + ", " +
-                                  building.pieces.ContainsKey(neighbour));
                         continue;
                     }
 
