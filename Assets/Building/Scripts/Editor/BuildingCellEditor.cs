@@ -3,23 +3,16 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using System;
 
-// GUILayout.Button("label")
-// Handles.Button(pos, rot, size1, size2, Handles.RectangleHandleCap)
-// Handles.PositionHandle(pos, rot)
-// EditorUtility.SetDirty(gameObject);
+// TODO: can't work standalone
 namespace Building {
     [CustomEditor(typeof(BuildingCell))]
-    public class BuildingCellEditor : Editor {
-        BuildingCell _parsedTarget;
-        BuildingCell Target {
-            get {
-                if (_parsedTarget == null) _parsedTarget = (BuildingCell) target;
-                return _parsedTarget;
+    public class BuildingCellEditor : GenericEditor<BuildingCell> {
+        public static bool DrawNeighbourButton (BuildingCell cell, CardinalPoint location) {
+            BuildingCell neighbour = null;
+            if (cell.connected != null && (int) location < cell.connected.Length) {
+                neighbour = cell.connected[(int) location];
             }
-        }
 
-        public bool DrawNeighbourButton (BuildingCell cell, CardinalPoint location) {
-            BuildingCell neighbour = cell.connected[(int) location];
             Vector3 pos = Util.UnitVector(location) * FloorTile.tileSize +
                 FloorTile.tileSize/2f * new Vector3(-1, 0, 1);
             float size = FloorTile.tileSize * 0.2f;
@@ -32,7 +25,7 @@ namespace Building {
             return clicked;
         }
 
-        public void DrawGizmos (BuildingCell cell) {
+        public static void DrawGizmos (BuildingCell cell) {
             Handles.matrix = cell.transform.localToWorldMatrix;
             BuildingTileEditor.DrawGizmos(cell.tile);
 
@@ -43,22 +36,10 @@ namespace Building {
             }
         }
 
-        public override void OnInspectorGUI () {
-            DrawDefaultInspector();
-
-            if (GUI.changed) {
-                EditorUtility.SetDirty(Target);
-                EditorSceneManager.MarkSceneDirty(Target.gameObject.scene);
-            }
-        }
 
         void OnSceneGUI () {
             DrawGizmos(Target);
-
-            if (GUI.changed) {
-                EditorUtility.SetDirty(Target);
-                EditorSceneManager.MarkSceneDirty(Target.gameObject.scene);
-            }
+            UselessSceneGUI();
         }
     }
 }

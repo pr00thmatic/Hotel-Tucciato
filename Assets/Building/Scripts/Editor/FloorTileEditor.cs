@@ -8,15 +8,7 @@ namespace Building {
     // Handles.PositionHandle(pos, rot)
     // EditorUtility.SetDirty(gameObject);
     [CustomEditor(typeof(FloorTile))]
-    public class FloorTileEditor : Editor {
-        FloorTile _parsedTarget;
-        FloorTile Target {
-            get {
-                if (_parsedTarget == null) _parsedTarget = (FloorTile) target;
-                return _parsedTarget;
-            }
-        }
-
+    public class FloorTileEditor : GenericEditor<FloorTile> {
         void EndAndStart () {
             Vector3 forward = Target.start - Target.end;
             Quaternion rot = forward == Vector3.zero? Quaternion.identity:
@@ -52,17 +44,11 @@ namespace Building {
             return clicked;
         }
 
-        public override void OnInspectorGUI () {
-            DrawDefaultInspector();
+        public override void CustomInspectorGUI () {
             if (GUILayout.Button("Generate")) Target.Generate();
             if (GUILayout.Button("Reset")) {
                 Target.ClearTilesInfo();
                 Target.Generate();
-            }
-
-            if (GUI.changed) {
-                EditorUtility.SetDirty(Target);
-                EditorSceneManager.MarkSceneDirty(Target.gameObject.scene);
             }
         }
 
@@ -71,16 +57,10 @@ namespace Building {
             Tools.current = Tool.None;
 
             EndAndStart();
-            bool edited = false;
             if (BuildingTileEdition()) {
                 Target.Generate();
-                edited = true;
             }
-
-            if (GUI.changed || edited) {
-                EditorUtility.SetDirty(Target);
-                EditorSceneManager.MarkSceneDirty(Target.gameObject.scene);
-            }
+            UselessSceneGUI();
         }
     }
 }

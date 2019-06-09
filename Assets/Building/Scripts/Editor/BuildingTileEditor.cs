@@ -4,15 +4,7 @@ using UnityEngine;
 
 namespace Building {
     [CustomEditor(typeof(BuildingTile))]
-    public class BuildingTileEditor : Editor {
-        BuildingTile    _parsedTarget;
-        BuildingTile    Target {
-            get {
-                if (_parsedTarget == null) _parsedTarget = (BuildingTile) target;
-                return _parsedTarget;
-            }
-        }
-
+    public class BuildingTileEditor : GenericEditor<BuildingTile> {
         static bool DrawWallButton (BuildingTile tile, CardinalPoint orientation) {
             float size = FloorTile.tileSize * 0.1f;
             Vector3 pos = (Vector3.forward - Vector3.right) * FloorTile.tileSize / 2f;
@@ -66,22 +58,9 @@ namespace Building {
             return modified;
         }
 
-        public override void OnInspectorGUI () {
-            DrawDefaultInspector();
-
-            if (GUI.changed) {
-                EditorUtility.SetDirty(Target);
-                EditorSceneManager.MarkSceneDirty(Target.gameObject.scene);
-            }
-        }
-
         void OnSceneGUI () {
             DrawGizmos(Target);
-
-            if (GUI.changed) {
-                EditorUtility.SetDirty(Target);
-                EditorSceneManager.MarkSceneDirty(Target.gameObject.scene);
-            }
+            UselessSceneGUI();
         }
     }
 }

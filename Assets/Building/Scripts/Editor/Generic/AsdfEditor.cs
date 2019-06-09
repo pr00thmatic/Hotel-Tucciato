@@ -3,15 +3,16 @@ using UnityEditor;
 
 [CustomEditor(typeof(Asdf))]
 public class AsdfEditor: GenericEditor<Asdf> {
-    static EditorInvokable<Asdf>[] _invokables =
-        new EditorInvokable<Asdf>[] { new AsdfEditorInvokable() };
-    public override EditorInvokable<Asdf>[] Invokables { get => _invokables; }
+    public static void DrawGizmos (Asdf target) {
+        Handles.DrawSolidDisc(target.transform.position, Vector3.up, 2f);
+    }
 
     public override void CustomInspectorGUI () {
         GUILayout.Toggle(true, "XD", "Button");
     }
 
     void OnSceneGUI () {
+        DrawGizmos(Target);
         UselessSceneGUI();
     }
 }

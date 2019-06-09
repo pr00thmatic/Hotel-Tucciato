@@ -21,6 +21,7 @@ namespace Building {
             neighbour.transform.localPosition = transform.localPosition +
                 Util.UnitVector(location) * FloorTile.tileSize;
             neighbour.transform.parent = transform.parent;
+            Debug.Log("adding a neighbour at " + location + " name is " + neighbour.name);
         }
     }
 }
