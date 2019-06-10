@@ -13,6 +13,21 @@ namespace Building {
             connected = new BuildingCell[4];
         }
 
+        public void RemoveNeighbour (CardinalPoint location) {
+            BuildingCell neighbour = connected[(int) location];
+            if (neighbour == null) return;
+
+            try {
+                Util.FindInParent<MatrixBuilding>(transform)
+                    .pieces[Coord.FromWorld(neighbour.gameObject.transform.position,
+                                            FloorTile.tileSize)] = null;
+            } catch {
+                Destroy(neighbour.gameObject);
+                Util.FindInParent<MatrixBuilding>(transform).PopulatePiecesInfo();
+            }
+            Util.SafeDestroy(neighbour.gameObject);
+        }
+
         public void ReadNeighbours () {
             // a building cell is always children of a MatrixBuilding
             MatrixBuilding matrix = Util.FindInParent<MatrixBuilding>(transform);

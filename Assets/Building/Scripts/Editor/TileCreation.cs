@@ -24,7 +24,7 @@ public class TileCreation: IBuildingModeOption {
     void DrawAdditionButtons (MatrixBuilding building) {
         Dictionary<Coord, bool> flags = new Dictionary<Coord, bool>();
         List<Coord> queuedAddition = new List<Coord>();
-
+        
         foreach (KeyValuePair<Coord, BuildingCell> piece in building.pieces) {
             for (int xStep=-1; xStep<2; xStep++) {
                 for (int zStep=-1; zStep<2; zStep++) {

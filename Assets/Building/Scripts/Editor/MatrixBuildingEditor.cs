@@ -9,6 +9,10 @@ public class MatrixBuildingEditor : GenericEditor<MatrixBuilding> {
     public static IBuildingModeOption current;
     public TileCreation creation = new TileCreation();
 
+    void OnEnable () {
+        Target.PopulatePiecesInfo();
+    }
+
     public override void CustomInspectorGUI () {
         current = current == null? creation: current;
         current = GUILayout.Toggle(current == creation, "Tile creation", "Button")?
@@ -24,6 +28,4 @@ public class MatrixBuildingEditor : GenericEditor<MatrixBuilding> {
         current.DrawGizmos(Target);
         UselessSceneGUI();
     }
-
-
 }

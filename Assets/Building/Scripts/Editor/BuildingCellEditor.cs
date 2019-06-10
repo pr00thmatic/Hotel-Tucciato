@@ -26,6 +26,14 @@ namespace Building {
                                           size, size, Handles.CircleHandleCap);
             Handles.color = last;
 
+            if (clicked) {
+                if (neighbour == null) {
+                    cell.AddNeighbour(location);
+                } else {
+                    cell.RemoveNeighbour(location);
+                }
+            }
+
             return clicked;
         }
 
@@ -34,9 +42,7 @@ namespace Building {
             BuildingTileEditor.DrawGizmos(cell.tile);
 
             foreach (CardinalPoint location in Util.ListCardinalPoints()) {
-                if (DrawNeighbourButton(cell, location)) {
-                    cell.AddNeighbour(location);
-                }
+                DrawNeighbourButton(cell, location);
             }
         }
 

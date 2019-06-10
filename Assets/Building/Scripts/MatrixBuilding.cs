@@ -8,7 +8,7 @@ namespace Building {
         #region PREFAB_CONFIG
         #pragma warning disable 0649
         [SerializeField] GameObject prototype;
-        [HideInInspector] [SerializeField] ScriptGeneratedContent content;
+        [SerializeField] ScriptGeneratedContent content;
         #pragma warning restore 0649
         #endregion PREFAB_CONFIG
 
