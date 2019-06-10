@@ -43,4 +43,18 @@ public class Util {
     public static CardinalPoint[] ListCardinalPoints () {
         return Enum.GetValues(typeof(CardinalPoint)) as CardinalPoint[];
     }
+
+    public static T FindInParent<T> (Transform parent) where T: MonoBehaviour {
+        T found = null;
+
+        do {
+            found = parent.GetComponent<T>();
+            if (found != null) {
+                return found;
+            }
+            parent = parent.parent;
+        } while (parent != null);
+
+        return found;
+    }
 }

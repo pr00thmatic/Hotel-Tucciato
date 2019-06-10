@@ -14,6 +14,8 @@ namespace Building {
 
         public Dictionary<Coord, BuildingCell> pieces =
             new Dictionary<Coord, BuildingCell>();
+        [HideInInspector]
+        public List<string> serializedBuilding;
 
         public void Generate () {
             content.persistentRoot = transform;
@@ -25,6 +27,8 @@ namespace Building {
 
         public void Add (Coord pos) {
             BuildingCell created = Instantiate(prototype).AddComponent<BuildingCell>();
+            created.name = pos.ToString();
+            created.Initialize();
             pieces[pos] = created;
             created.tile = created.GetComponent<BuildingTile>();
             created.transform.parent = content.DisposableRoot;
@@ -36,6 +40,26 @@ namespace Building {
 
             Util.SafeDestroy(pieces[pos].gameObject);
             pieces.Remove(pos);
+        }
+
+        public MatrixBuildingState GetState () {
+            MatrixBuildingState state = new MatrixBuildingState();
+            foreach (Transform cellGO in content.DisposableRoot) {
+                BuildingCell cell = cellGO.GetComponent<BuildingCell>();
+                state.cells.Add(cell.GetState());
+            }
+
+            return state;
+        }
+
+        public void PopulatePiecesInfo () {
+            pieces = new Dictionary<Coord, BuildingCell>();
+
+            foreach (Transform cellGO in content.DisposableRoot) {
+                BuildingCell cell = cellGO.GetComponent<BuildingCell>();
+                pieces[Coord.FromWorld(cell.transform.position,
+                                       FloorTile.tileSize)] = cell;
+            }
         }
     }
 }

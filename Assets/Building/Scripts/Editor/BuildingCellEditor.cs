@@ -7,6 +7,10 @@ using System;
 namespace Building {
     [CustomEditor(typeof(BuildingCell))]
     public class BuildingCellEditor : GenericEditor<BuildingCell> {
+        void OnEnable () {
+            Target.ReadNeighbours();
+        }
+
         public static bool DrawNeighbourButton (BuildingCell cell, CardinalPoint location) {
             BuildingCell neighbour = null;
             if (cell.connected != null && (int) location < cell.connected.Length) {

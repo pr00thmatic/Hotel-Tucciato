@@ -27,7 +27,6 @@ public class GenericEditor<T> : Editor where T: MonoBehaviour {
 
     public void UselessSceneGUI () {
         CustomGizmos();
-
         SafeSave();
     }
 }
