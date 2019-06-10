@@ -39,9 +39,11 @@ namespace Building {
                 GetComponent<BuildingCell>();
             connected[(int) location] = neighbour;
             neighbour.connected[(int) Util.Opposite(location)] = this;
+
+            neighbour.transform.parent = transform.parent;
             neighbour.transform.localPosition = transform.localPosition +
                 Util.UnitVector(location) * FloorTile.tileSize;
-            neighbour.transform.parent = transform.parent;
+
             Debug.Log("adding a neighbour at " + location + " name is " + neighbour.name);
         }
 
