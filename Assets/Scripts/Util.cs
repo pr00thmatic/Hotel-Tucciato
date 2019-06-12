@@ -57,4 +57,9 @@ public class Util {
 
         return found;
     }
+
+    public static Coord GetCoord (CardinalPoint orientation, Transform reference) {
+        return Coord.FromWorld(reference.localPosition, FloorTile.tileSize) +
+            Coord.Cast(Util.UnitVector(orientation));
+    }
 }

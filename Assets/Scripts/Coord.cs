@@ -14,8 +14,16 @@ public struct Coord {
                          (int) (pos.z/tileSize));
     }
 
+    public static Coord Cast (Vector3 raw) {
+        return new Coord((int) raw.x, (int) raw.z);
+    }
+
     public Vector3 ToWorld (float tileSize) {
         return this * new Vector3(1, 0, 1) * tileSize;
+    }
+
+    public static Coord operator + (Coord a, Coord b) {
+        return new Coord(a.x + b.x, a.z + b.z);
     }
 
     public static Vector3 operator * (Coord a, Vector3 v) {

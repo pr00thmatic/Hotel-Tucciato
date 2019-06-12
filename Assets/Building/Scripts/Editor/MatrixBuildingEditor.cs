@@ -11,6 +11,11 @@ public class MatrixBuildingEditor : GenericEditor<MatrixBuilding> {
 
     void OnEnable () {
         Target.PopulatePiecesInfo();
+        CoolEditor.HideTool();
+    }
+
+    void OnDisable () {
+        CoolEditor.ShowTool();
     }
 
     public override void CustomInspectorGUI () {
