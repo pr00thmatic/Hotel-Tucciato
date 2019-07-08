@@ -14,7 +14,7 @@ namespace Building {
         public static void DrawButton (Coord coord, MatrixBuilding matrix) {
             CoolEditor.SetHandlesMatrix(matrix.transform.localToWorldMatrix);
 
-            bool exists = matrix.pieces.ContainsKey(coord);
+            bool exists = matrix.pieces.ContainsKey(coord) && matrix.pieces[coord];
             CoolEditor.SetHandlesColor(exists? Color.red: Color.green);
 
             float size = FloorTile.tileSize * 0.2f;

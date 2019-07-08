@@ -10,6 +10,9 @@ public class TileCreation: IBuildingModeOption {
 
     public void DrawGizmos (MatrixBuilding building) {
         foreach (KeyValuePair<Coord,BuildingCell> piece in building.pieces) {
+            if (!piece.Value) {
+                continue;
+            }
             BuildingCellEditor.DrawGizmos(piece.Value);
         }
     }

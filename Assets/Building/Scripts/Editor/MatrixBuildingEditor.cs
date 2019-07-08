@@ -7,30 +7,38 @@ using System.Collections.Generic;
 [CustomEditor(typeof(MatrixBuilding))]
 public class MatrixBuildingEditor : GenericEditor<MatrixBuilding> {
     public static IBuildingModeOption current;
-    public TileCreation creation = new TileCreation();
+    public static TileCreation creation = new TileCreation();
+    public static IBuildingModeOption Current {
+        get {
+            if (current == null) current = creation;
+            return current;
+        }
+        set => current = value;
+    }
+
+    public void UndoHandler () {
+        Target.PopulatePiecesInfo();
+    }
 
     void OnEnable () {
         Target.PopulatePiecesInfo();
         CoolEditor.HideTool();
+        Undo.undoRedoPerformed += UndoHandler;
     }
 
     void OnDisable () {
+        Undo.undoRedoPerformed -= UndoHandler;
         CoolEditor.ShowTool();
     }
 
     public override void CustomInspectorGUI () {
-        current = current == null? creation: current;
-        current = GUILayout.Toggle(current == creation, "Tile creation", "Button")?
-            creation: current;
-        current.DrawInspectorGUI(Target);
-
-        if (GUILayout.Button("generate!")) {
-            Target.Generate();
-        }
+        Current = GUILayout.Toggle(Current == creation, "Tile creation", "Button")?
+            creation: Current;
+        Current.DrawInspectorGUI(Target);
     }
 
     void OnSceneGUI () {
-        current.DrawGizmos(Target);
+        Current.DrawGizmos(Target);
         UselessSceneGUI();
     }
 }

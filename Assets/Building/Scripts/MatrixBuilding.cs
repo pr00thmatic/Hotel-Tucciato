@@ -26,7 +26,7 @@ namespace Building {
         }
 
         public void Add (Coord pos) {
-            BuildingCell created = Instantiate(prototype).AddComponent<BuildingCell>();
+            BuildingCell created = Util.Instantiate(prototype).AddComponent<BuildingCell>();
             created.name = pos.ToString();
             created.Initialize();
             pieces[pos] = created;

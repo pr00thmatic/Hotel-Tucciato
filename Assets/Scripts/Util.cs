@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEditor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,12 +12,33 @@ public class Util {
         new Vector3(0, 0, 1), new Vector3(1, 0, 0)
     };
 
+    public static GameObject Instantiate (GameObject thingie, string message = "") {
+        #if UNITY_EDITOR
+        GameObject created;
+        if (!Application.isPlaying) {
+            created = PrefabUtility.InstantiatePrefab(thingie) as GameObject;
+        } else {
+            created = GameObject.Instantiate(thingie);
+        }
+        Undo.RegisterCreatedObjectUndo(created, message == ""?
+                                       "created thingie " + thingie.name: message);
+        #else
+        created = GameObject.Instantiate(thingie);
+        #endif
+
+        return created;
+    }
+
     public static void SafeDestroy (GameObject thingie) {
+        #if UNITY_EDITOR
         if (Application.isPlaying) {
             GameObject.Destroy(thingie);
         } else {
-            GameObject.DestroyImmediate(thingie);
+            Undo.DestroyObjectImmediate(thingie);
         }
+        #else
+        GameObject.Destroy(thingie);
+        #endif
     }
 
     public static WallType Next (WallType type) {
