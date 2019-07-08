@@ -32,7 +32,8 @@ namespace Building {
             pieces[pos] = created;
             created.tile = created.GetComponent<BuildingTile>();
             created.transform.parent = content.DisposableRoot;
-            created.transform.localPosition = pos.ToWorld(FloorTile.tileSize);
+            created.transform.localRotation = Quaternion.identity;
+            created.transform.localPosition = pos.ToWorld();
         }
 
         public void Remove (Coord pos) {
@@ -54,10 +55,9 @@ namespace Building {
 
         public void PopulatePiecesInfo () {
             pieces = new Dictionary<Coord, BuildingCell>();
-
             foreach (Transform cellGO in content.DisposableRoot) {
                 BuildingCell cell = cellGO.GetComponent<BuildingCell>();
-                pieces[Coord.FromWorld(cell.transform.position,
+                pieces[Coord.FromWorld(cell.transform.localPosition,
                                        FloorTile.tileSize)] = cell;
             }
         }
