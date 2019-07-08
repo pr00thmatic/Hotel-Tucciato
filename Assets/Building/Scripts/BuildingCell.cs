@@ -6,6 +6,12 @@ using System.Collections.Generic;
 namespace Building {
     public class BuildingCell : MonoBehaviour {
         public BuildingTile tile;
+        public MatrixBuilding MatrixBuilding {
+            get => Util.FindInParent<MatrixBuilding>(transform);
+        }
+        public Coord Coord {
+            get => Coord.FromWorld(transform.localPosition, FloorTile.tileSize);
+        }
 
         public void Initialize () {
             tile = GetComponent<BuildingTile>();
@@ -29,7 +35,7 @@ namespace Building {
 
             return new BuildingCellState() {
                 tile = tile.GetState(),
-                coord = Coord.FromWorld(transform.position, FloorTile.tileSize)
+                coord = this.Coord
             };
         }
     }

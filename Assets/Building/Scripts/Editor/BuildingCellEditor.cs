@@ -8,41 +8,34 @@ namespace Building {
     [CustomEditor(typeof(BuildingCell))]
     public class BuildingCellEditor : GenericEditor<BuildingCell> {
         void OnEnable () {
-            Target.ReadNeighbours();
+            Target.MatrixBuilding.PopulatePiecesInfo();
         }
 
-        public static bool DrawNeighbourButton (BuildingCell cell, CardinalPoint location) {
-            BuildingCell neighbour = null;
-            if (cell.connected != null && (int) location < cell.connected.Length) {
-                neighbour = cell.connected[(int) location];
-            }
+        public static void DrawButton (Coord coord, MatrixBuilding matrix) {
+            CoolEditor.SetHandlesMatrix(matrix.transform.localToWorldMatrix);
 
-            Vector3 pos = Util.UnitVector(location) * FloorTile.tileSize +
-                FloorTile.tileSize/2f * new Vector3(-1, 0, 1);
+            bool exists = matrix.pieces.ContainsKey(coord);
+            CoolEditor.SetHandlesColor(exists? Color.red: Color.green);
+
             float size = FloorTile.tileSize * 0.2f;
-            Color last = Handles.color;
-            Handles.color = neighbour == null? Color.green: Color.red;
-            bool clicked = Handles.Button(pos, Quaternion.Euler(90, 0, 0),
-                                          size, size, Handles.CircleHandleCap);
-            Handles.color = last;
-
-            if (clicked) {
-                if (neighbour == null) {
-                    cell.AddNeighbour(location);
-                } else {
-                    cell.RemoveNeighbour(location);
-                }
+            Vector3 pos = coord.ToWorld() + new Vector3(-1,0,1) * FloorTile.tileSize * 0.5f;
+            if (Handles.Button(pos, Quaternion.Euler(90,0,0), size, size,
+                               Handles.CircleHandleCap)) {
+                if (exists) matrix.Remove(coord);
+                else matrix.Add(coord);
             }
 
-            return clicked;
+            CoolEditor.RestoreHandlesColor();
+            CoolEditor.RestoreHandlesMatrix();
         }
 
         public static void DrawGizmos (BuildingCell cell) {
-            Handles.matrix = cell.transform.localToWorldMatrix;
             BuildingTileEditor.DrawGizmos(cell.tile);
+            DrawButton(cell.Coord, cell.MatrixBuilding);
 
-            foreach (CardinalPoint location in Util.ListCardinalPoints()) {
-                DrawNeighbourButton(cell, location);
+            foreach (CardinalPoint point in Util.ListCardinalPoints()) {
+                DrawButton(cell.Coord + Coord.Cast(Util.UnitVector(point)),
+                           cell.MatrixBuilding);
             }
         }
 

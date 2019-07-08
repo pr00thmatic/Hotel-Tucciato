@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Building; // ToWorld(): Vector3
 
 [System.Serializable]
 public struct Coord {
@@ -16,6 +17,10 @@ public struct Coord {
 
     public static Coord Cast (Vector3 raw) {
         return new Coord((int) raw.x, (int) raw.z);
+    }
+
+    public Vector3 ToWorld () {
+        return ToWorld(FloorTile.tileSize);
     }
 
     public Vector3 ToWorld (float tileSize) {
