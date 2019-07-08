@@ -8,29 +8,58 @@ namespace Building {
         #region PREFAB_CONFIG
         #pragma warning disable 0649
         [SerializeField] GameObject prototype;
-        [HideInInspector] [SerializeField] ScriptGeneratedContent content;
+        [SerializeField] ScriptGeneratedContent content;
         #pragma warning restore 0649
         #endregion PREFAB_CONFIG
 
-
-        public List<BuildingCell> pieces;
+        public Dictionary<Coord, BuildingCell> pieces =
+            new Dictionary<Coord, BuildingCell>();
+        [HideInInspector]
+        public List<string> serializedBuilding;
 
         public void Generate () {
             content.persistentRoot = transform;
-            pieces = new List<BuildingCell>();
+            pieces = new Dictionary<Coord, BuildingCell>();
             content.Clear();
 
-            if (pieces.Count == 0) {
-                pieces.Add(AddPiece(Vector3.zero));
-            }
+            Add(new Coord(0,0));
         }
 
-        public BuildingCell AddPiece (Vector3 localPosition) {
-            BuildingCell cell = Instantiate(prototype).AddComponent<BuildingCell>();
-            cell.transform.parent = content.DisposableRoot;
-            cell.transform.localPosition = localPosition;
-            cell.Initialize();
-            return cell;
+        public void Add (Coord pos) {
+            BuildingCell created = Util.Instantiate(prototype).AddComponent<BuildingCell>();
+            created.name = pos.ToString();
+            created.Initialize();
+            pieces[pos] = created;
+            created.tile = created.GetComponent<BuildingTile>();
+            created.transform.parent = content.DisposableRoot;
+            created.transform.localRotation = Quaternion.identity;
+            created.transform.localPosition = pos.ToWorld();
+        }
+
+        public void Remove (Coord pos) {
+            if (pieces.ContainsKey(pos) == false) return;
+
+            Util.SafeDestroy(pieces[pos].gameObject);
+            pieces.Remove(pos);
+        }
+
+        public MatrixBuildingState GetState () {
+            MatrixBuildingState state = new MatrixBuildingState();
+            foreach (Transform cellGO in content.DisposableRoot) {
+                BuildingCell cell = cellGO.GetComponent<BuildingCell>();
+                state.cells.Add(cell.GetState());
+            }
+
+            return state;
+        }
+
+        public void PopulatePiecesInfo () {
+            pieces = new Dictionary<Coord, BuildingCell>();
+            foreach (Transform cellGO in content.DisposableRoot) {
+                BuildingCell cell = cellGO.GetComponent<BuildingCell>();
+                pieces[Coord.FromWorld(cell.transform.localPosition,
+                                       FloorTile.tileSize)] = cell;
+            }
         }
     }
 }

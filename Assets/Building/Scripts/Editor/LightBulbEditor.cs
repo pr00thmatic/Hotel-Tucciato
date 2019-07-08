@@ -7,28 +7,14 @@ using UnityEngine;
 // Handles.PositionHandle(pos, rot)
 // EditorUtility.SetDirty(gameObject);
 [CustomEditor(typeof(LightBulb))]
-public class LightBulbEditor : Editor {
-    LightBulb _parsedTarget;
-    LightBulb Target {
-        get {
-            if (_parsedTarget == null) _parsedTarget = (LightBulb) target;
-            return _parsedTarget;
-        }
-    }
-
-    public override void OnInspectorGUI () {
-        DrawDefaultInspector();
+public class LightBulbEditor : GenericEditor<LightBulb> {
+    public override void CustomInspectorGUI () {
         if (GUILayout.Button("On/Off")) {
             Target.Toggle();
         }
 
         if (GUILayout.Button("Toggle Active")) {
             Target.SetActive(!Target.isActive);
-        }
-
-        if (GUI.changed) {
-            EditorUtility.SetDirty(Target);
-            EditorSceneManager.MarkSceneDirty(Target.gameObject.scene);
         }
     }
 }

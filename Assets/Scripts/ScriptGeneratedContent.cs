@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class ScriptGeneratedContent {
     public Transform persistentRoot;
     public Transform DisposableRoot { get => _disposableRoot; }
-    Transform _disposableRoot;
+    [SerializeField] Transform _disposableRoot;
 
     void ClearRemainings () {
         Transform remaining;
