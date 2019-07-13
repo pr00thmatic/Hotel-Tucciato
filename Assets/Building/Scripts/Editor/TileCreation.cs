@@ -14,6 +14,7 @@ public class TileCreation: IBuildingModeOption {
                 continue;
             }
             BuildingCellEditor.DrawGizmos(piece.Value);
+            if (BuildingCellEditor.hasModifiedCollection) return;
         }
     }
 }

@@ -61,5 +61,31 @@ namespace Building {
                                        FloorTile.tileSize)] = cell;
             }
         }
+
+        public void Blend () {
+            foreach (KeyValuePair<Coord, BuildingCell> entry in pieces) {
+                Blend(entry.Key);
+            }
+        }
+
+        public void Blend (Coord coord) {
+            PopulatePiecesInfo();
+            foreach (CardinalPoint direction in Util.ListCardinalPoints()) {
+                Coord neighbourCoord = coord + direction;
+                if (!pieces.ContainsKey(neighbourCoord)) {
+                    if (pieces.ContainsKey(coord)) {
+                        pieces[coord].tile.SetWall(direction, WallType.simple);
+                    }
+                } else {
+                    WallTile neighbourTile = pieces[neighbourCoord].tile
+                        .GetWall(Util.Opposite(direction));
+                    if (neighbourTile.CurrentType == WallType.simple ||
+                        neighbourTile.CurrentType == WallType.none) {
+                        neighbourTile.SetType(pieces.ContainsKey(coord)?
+                                              WallType.none : WallType.simple);
+                    }
+                }
+            }
+        }
     }
 }

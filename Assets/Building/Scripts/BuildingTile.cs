@@ -10,6 +10,10 @@ namespace Building {
             return transform.Find("walls/" + location).GetComponent<WallTile>();
         }
 
+        public void SetWall (CardinalPoint location, WallType type) {
+            GetWall(location).SetType(type);
+        }
+
         public void ToggleCeilingLightExistence () {
             ceilingLight.SetActive(!ceilingLight.isActive);
         }
