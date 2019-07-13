@@ -35,6 +35,11 @@ public struct Coord {
         return new Vector3(v.x * a.x, v.y, v.z * a.z);
     }
 
+    public static Coord operator + (Coord a, CardinalPoint direction) {
+        Vector3 v = Util.UnitVector(direction);
+        return a + Cast(v);
+    }
+
     public override string ToString () {
         return "(" + x + "," + z + ")";
     }
