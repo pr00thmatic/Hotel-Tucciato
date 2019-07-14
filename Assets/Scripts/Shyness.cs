@@ -9,7 +9,6 @@ public class Shyness : MonoBehaviour {
 
     public Transform target;
     public Renderer[] cachedRenderers;
-    public bool shy;
     public Renderer visibilityProbe;
 
     public Vector3 GlobalForward { get => target.TransformDirection(forward); }
@@ -25,7 +24,6 @@ public class Shyness : MonoBehaviour {
         Vector3 view = Camera.main.transform.position - transform.position;
         float difference = Vector3.SignedAngle(view, GlobalForward, target.up);
         bool isShy = difference < -90 || difference > 90;
-        shy = isShy;
 
         foreach (Renderer r in cachedRenderers) {
             if (!r.gameObject.activeInHierarchy) continue;
