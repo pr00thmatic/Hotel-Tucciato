@@ -167,6 +167,7 @@ MonoBehaviour:
   target: {fileID: 7195238268792675594}
   cachedRenderers:
   - {fileID: 7195238268790251498}
+  - {fileID: 9188008947536752252}
   shy: 1
   visibilityProbe: {fileID: 7195238268790251498}
 --- !u!1 &7195238268478339431
