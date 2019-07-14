@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace Building {
     public class WallTile : MonoBehaviour {
+        public Transform models;
         public Transform door;
         public float DoorAngle {
             get => door.localRotation.eulerAngles.y;
@@ -22,7 +23,7 @@ namespace Building {
 
         public void SetType (WallType type) {
             _activeWall = null;
-            foreach (Transform child in transform) {
+            foreach (Transform child in models) {
                 child.gameObject.SetActive(type.ToString() == child.name);
                 if (child.gameObject.activeSelf) {
                     _activeWall = child.gameObject;
@@ -37,7 +38,7 @@ namespace Building {
 
         public WallTileState GetState () {
             WallTileState state = new WallTileState();
-            foreach (Transform wallTypeInstance in transform) {
+            foreach (Transform wallTypeInstance in models) {
                 if (wallTypeInstance.gameObject.activeSelf) {
                     state.type = (WallType)
                         Enum.Parse(typeof(WallType), wallTypeInstance.name);
