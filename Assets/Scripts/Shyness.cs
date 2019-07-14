@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 [ExecuteInEditMode]
 public class Shyness : MonoBehaviour {
+    public Vector3 forward = new Vector3(0,0,1);
+
     public Transform target;
     public Renderer[] cachedRenderers;
     public bool shy;
@@ -19,7 +21,9 @@ public class Shyness : MonoBehaviour {
     void Update () {
         if (!visibilityProbe.isVisible) return;
         Vector3 view = Camera.main.transform.position - transform.position;
-        float difference = Vector3.SignedAngle(view, target.forward, Vector3.up);
+        float difference =
+            Vector3.SignedAngle(view, target.TransformDirection(forward),
+                                target.up);
         bool isShy = difference < -90 || difference > 90;
         shy = isShy;
 
